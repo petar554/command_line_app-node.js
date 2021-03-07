@@ -1,5 +1,3 @@
-#!/usr/bin/env node 
-
 const fs = require('fs');
 
 // we can access to the process module directly, without the need for a require

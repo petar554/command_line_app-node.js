@@ -1,4 +1,4 @@
-#!/usr/bin/env node     
+#!/usr/bin/env node
 const fs = require('fs');
 
 // we can access to the process module directly, without the need for a require
@@ -8,5 +8,14 @@ fs.readdir(process.cwd(), (err, filenames) => {
     if (err) {
         console.log(err);
     }
-    console.log(filenames);
+
+
+    for (let filename of filenames) {
+        fs.lstat(filename, (err, stats) => {
+            if (err) {
+                console.log(err);
+            }
+            console.log(filename, stats.isFile());
+        });
+    }
 });

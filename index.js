@@ -3,7 +3,10 @@ const fs = require('fs');
 const util = require('util');
 
 // method 2
-const lstat = util.promisify(fs.lstat);
+// const lstat = util.promisify(fs.lstat);
+
+// method 3 
+const { lstat } = fs.promises;
 
 // we can access to the process module directly, without the need for a require
 fs.readdir(process.cwd(), (err, filenames) => {

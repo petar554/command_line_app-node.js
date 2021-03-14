@@ -2,6 +2,8 @@
 const fs = require('fs');
 const util = require('util');
 const chalk = require('chalk');
+// moduele inside node standard libray
+const path = require('path');
 
 // method 2
 // const lstat = util.promisify(fs.lstat);
@@ -10,8 +12,13 @@ const chalk = require('chalk');
 // return a promise instead of taking callback function
 const { lstat } = fs.promises;
 
+// process.argv array has some information about how program is executed
+// console.log(process.argv);
+
+const targetDirectory = process.argv[2] || process.cwd();
+
 // we can access to the process module directly, without the need for a require
-fs.readdir(process.cwd(), async (err, filenames) => {
+fs.readdir(targetDirectory, async (err, filenames) => {
     // err === an error Object, which means something went wrong
     // err === null, which means everything is OK
     if (err) {
@@ -19,7 +26,7 @@ fs.readdir(process.cwd(), async (err, filenames) => {
     }
 
     const statPromises = filenames.map(filename => {
-        return lstat(filename);
+        return lstat(path.join(targetDirectory, filename));
     });
 
     // Promise.all accepts an array (map in this case) of promises, and will attempt to fulfill all of them

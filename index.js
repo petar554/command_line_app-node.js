@@ -1,5 +1,9 @@
 #!/usr/bin/env node
 const fs = require('fs');
+const util = require('util');
+
+// method 2
+const lstat = util.promisify(fs.lstat);
 
 // we can access to the process module directly, without the need for a require
 fs.readdir(process.cwd(), (err, filenames) => {

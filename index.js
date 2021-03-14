@@ -10,7 +10,7 @@ const util = require('util');
 const { lstat } = fs.promises;
 
 // we can access to the process module directly, without the need for a require
-fs.readdir(process.cwd(), (err, filenames) => {
+fs.readdir(process.cwd(), async (err, filenames) => {
     // err === an error Object, which means something went wrong
     // err === null, which means everything is OK
     if (err) {

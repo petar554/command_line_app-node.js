@@ -6,6 +6,7 @@ const util = require('util');
 // const lstat = util.promisify(fs.lstat);
 
 // method 3 
+// return a promise instead of taking callback function
 const { lstat } = fs.promises;
 
 // we can access to the process module directly, without the need for a require
@@ -14,6 +15,15 @@ fs.readdir(process.cwd(), (err, filenames) => {
     // err === null, which means everything is OK
     if (err) {
         console.log(err);
+    }
+
+    for (filename of filenames) {
+        try {
+            const stats = await lstat(filename);
+            console.log(filename, stats.isFile())
+        } catch (err) {
+            console.log(err);
+        }
     }
 });
 

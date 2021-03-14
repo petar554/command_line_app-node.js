@@ -17,14 +17,20 @@ fs.readdir(process.cwd(), async (err, filenames) => {
         console.log(err);
     }
 
-    for (filename of filenames) {
-        try {
-            const stats = await lstat(filename);
-            console.log(filename, stats.isFile())
-        } catch (err) {
-            console.log(err);
-        }
+    const statPromises = filenames.map(filename => {
+        return lstat(filename);
+    });
+
+    // Promise.all accepts an array (map in this case) of promises, and will attempt to fulfill all of them
+    const allStats = await Promise.all(statPromises);
+
+    for (let stats of allStats) {
+        const index = allStats.indexOf(stats);
+        //console.log(index);
+
+        console.log(filenames[index], stats.isFile());
     }
+
 });
 
 

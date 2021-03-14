@@ -19,5 +19,8 @@
   "homepage": "https://github.com/petar554/list_app-node.js#readme",
   "bin": {
     "nls": "index.js"
+  },
+  "dependencies": {
+    "chalk": "^4.1.0"
   }
 }
